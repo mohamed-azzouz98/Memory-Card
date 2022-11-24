@@ -7,7 +7,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) { // si la session n'est pas active
     session_start(); // on la démarre 
 }
 
-if (empty($_GET['idCarte'])) {
+if (empty($_GET['idCarte']) || empty($_SESSION['id'])) {
     header('Location: index.php');
 }
 

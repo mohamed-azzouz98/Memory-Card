@@ -55,7 +55,7 @@ $item = new Item();
                     </tr>
                     <?php
 
-                    $userCard = $item->getCarte($db, 'id_user', $idUser);
+                    $userCard = $item->getCarteByColumn($db, 'id_user', $idUser);
 
                     for ($i = 0; $i < count($userCard); $i++) : ?>
                         <tr>
@@ -67,9 +67,9 @@ $item = new Item();
                             <td><?php echo $userCard[$i]['date_modification'];  ?></td>
                             <td class="button"><a href="updateCarte.php?idCarte=<?php echo $userCard[$i]['id']; ?>"><i class="fa-solid fa-pen-to-square"></i></a></td>
 
-                            <td class="button"><a id="hrefDelete"><i class="fa-solid fa-trash"></i></a></td>
+                            <td class="button"><a class="hrefDelete" data-id="<?php echo $userCard[$i]['id']; ?>"><i class="fa-solid fa-trash"></i></a></td>
                           
-                            <input type=hidden id="idCarte" value=<?php echo $userCard[$i]['id']; ?>/>
+                            <input type=hidden class="idCarte" value=<?php echo $userCard[$i]['id']; ?>/>
                             
                         </tr>
                     <?php endfor; ?>
@@ -84,21 +84,24 @@ $item = new Item();
 
     </main>
     <script type="text/javascript">
-        const buttonDelete = document.querySelector('#hrefDelete');
-        const idCarte = document.querySelector('#idCarte').value;
+        const buttonsDelete = document.querySelectorAll('.hrefDelete');
+        
         
         const id = <?php echo $id; ?>
         
-        buttonDelete.addEventListener('click', () => {
-            
+        buttonsDelete.forEach((e)=> {
+
+            e.addEventListener('click', (event) => {
+            const idCarte = e.dataset.id;
             if (confirm("Voulez vous vraiment supprimer votre carte ? ") == true) {
-                buttonDelete.setAttribute('href', 'deleteCarte.php?idCarte=' + idCarte + '')
+                window.location = 'deleteCarte.php?idCarte=' + idCarte + ''
                 
                 
             } else {
                 window.location = "listCarte.php?id=" + $id + "";
             }
-        });
+        })
+    })
     </script>
 
 </body>

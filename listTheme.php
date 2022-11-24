@@ -72,9 +72,9 @@ $item = new Item();
                            
                             <td class="button"><a href="updateTheme.php?idTheme=<?php echo $userTheme[$i]['id']; ?>"><i class="fa-solid fa-pen-to-square"></i></a></td>
 
-                            <td class="button"><a id="hrefDelete"><i class="fa-solid fa-trash"></i></a></td>
+                            <td class="button"><a class="hrefDelete" data-id="<?php echo $userTheme[$i]['id']; ?>"><i class="fa-solid fa-trash"></i></a></td>
                           
-                            <input type=hidden id="idTheme" value=<?php echo $userTheme[$i]['id']; ?>/>
+                           
                             
                         </tr>
                     <?php endfor; ?>
@@ -89,20 +89,26 @@ $item = new Item();
 
     </main>
     <script type="text/javascript">
-        const buttonDelete = document.querySelector('#hrefDelete');
-        const idTheme = document.querySelector('#idTheme').value;
+        
+
+        const buttonsDelete = document.querySelectorAll('.hrefDelete');
+        
+        
         const id = <?php echo $id; ?>
         
-        buttonDelete.addEventListener('click', () => {
-            
-            if (confirm("Voulez vous vraiment supprimer votre Theme ? Cela supprimera egalement les cartes presentes dans celui-ci ") == true) {
-                buttonDelete.setAttribute('href', 'deleteTheme.php?idTheme=' + idTheme + '')
+        buttonsDelete.forEach((e)=> {
+
+            e.addEventListener('click', (event) => {
+            const idTheme = e.dataset.id;
+            if (confirm("Voulez vous vraiment supprimer votre theme ? ") == true) {
+                window.location = 'deleteTheme.php?idTheme=' + idTheme + ''
                 
                 
             } else {
                 window.location = "listTheme.php?id=" + $id + "";
             }
-        });
+        })
+    })
     </script>
 
 </body>

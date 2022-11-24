@@ -109,28 +109,31 @@ $item = new Item();
                 {
                     $tailleMax = 2097152;
                     $extensionsValides = $arrayName = array('jpg', 'jpeg', 'gif', 'png');
-
-                    if ($_FILES['imgRecto']['size'] <= $tailleMax) {
+                    
+                    
+                    if ($_FILES['imgRecto']['size'] < $tailleMax) {
+                        echo $_FILES['imgRecto']['size'];
                         $extensionsUpload = strtolower(substr(strrchr($_FILES['imgRecto']['name'], '.'), 1));
                         if (in_array($extensionsUpload, $extensionsValides)) {
                             $chemin = "imgCarte/recto/" . $time . "." . $extensionsUpload;
-
+                            
                             $deplacement = move_uploaded_file($_FILES['imgRecto']['tmp_name'], $chemin);
                             if ($deplacement) {
                                 $imgRecto = $time . "." . $extensionsUpload;
-
+                                $flagRecto = '1';
                                 
                             } else {
-                                echo "Erreur durant l'importation de votre image";
+                                
+                                echo "Erreur durant l'importation de votre image Recto<br>";
                             }
                         } else {
-                            echo "Votre image recto doit être au format jpg, jpeg, gif ou png. ";
+                            echo "Votre image recto doit être au format jpg, jpeg, gif ou png.<br> ";
                         }
                     } else {
-                        echo "Votre image recto ne doit pas dépasser 2Mo";
+                        echo "Votre image recto ne doit pas dépasser 2Mo<br>";
                     }
 
-                    if ($_FILES['imgVerso']['size'] <= $tailleMax) {
+                    if ($_FILES['imgVerso']['size'] < $tailleMax) {
                         $extensionsUpload = strtolower(substr(strrchr($_FILES['imgVerso']['name'], '.'), 1));
                         if (in_array($extensionsUpload, $extensionsValides)) {
                             $chemin = "imgCarte/verso/" . $time . "." . $extensionsUpload;
@@ -138,22 +141,27 @@ $item = new Item();
                             $deplacement = move_uploaded_file($_FILES['imgVerso']['tmp_name'], $chemin);
                             if ($deplacement) {
                                 $imgVerso = $time . "." . $extensionsUpload;
-
+                                $flagVerso = '1';
 
 
                                 
                             } else {
-                                echo "Erreur durant l'importation de votre image";
+                               
+                                echo "Erreur durant l'importation de votre image verso<br>";
                             }
                         } else {
-                            echo "Votre image verso doit être au format jpg, jpeg, gif ou png. ";
+                            echo "Votre image verso doit être au format jpg, jpeg, gif ou png.<br> ";
                         }
                     } else {
-                        echo "Votre image verso ne doit pas dépasser 2Mo";
+                        echo "Votre image verso ne doit pas dépasser 2Mo<br>";
                     }
 
-                    $newCarte = $item->addCarte($db, $id_User, $idTheme, $recto, $verso, $imgRecto, $imgVerso, $dateCreation, $dateCreation);
-                    header('Location: index.php');
+                    if($flagRecto == 1 && $flagVerso == 1){
+                        $newCarte = $item->addCarte($db, $id_User, $idTheme, $recto, $verso, $imgRecto, $imgVerso, $dateCreation, $dateCreation);
+                        header('Location: index.php');
+                    }
+                    
+                    
                 }
 
 
