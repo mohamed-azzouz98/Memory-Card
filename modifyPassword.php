@@ -1,6 +1,6 @@
 <?php 
 
-if (isset($_POST['submitPassword'])) {
+if (isset($_POST['submitPassword']) && ($id == $_GET['id'])) {
 
     $oldPassword = $_POST['oldPassword'];
     $newPassword = $_POST['newPassword'];

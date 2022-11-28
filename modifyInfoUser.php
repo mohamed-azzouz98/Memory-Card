@@ -1,6 +1,6 @@
 <?php
 if (isset($_POST['submitInfo'])) {
-    $msg ;
+    
 
     $pseudo = $_POST['pseudo'];
     $pseudo = filter_input(INPUT_POST, 'pseudo', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -15,7 +15,7 @@ if (isset($_POST['submitInfo'])) {
     $getEmail = $user->getEmail($db, $email);
   
 
-    if(!empty($pseudo)){
+    if(!empty($pseudo) && ($id == $_GET['id'])){
         if($getPseudo['count(pseudo)'] == 0){
             $updatePseudo = $user->updateUser($db, $id, 'pseudo', $pseudo);
             
@@ -25,9 +25,11 @@ if (isset($_POST['submitInfo'])) {
         }
         
 
+    }else{
+        echo 'fdsfdsfsdfsd';
     }
 
-    if(!empty($email)){
+    if(!empty($email) && ($id == $_GET['id'])){
         if($getEmail['count(email)'] == 0){
             $updateEmail = $user->updateUser($db, $id, 'email', $email);
             $_SESSION['email'] = $email;

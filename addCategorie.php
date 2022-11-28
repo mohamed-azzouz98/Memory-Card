@@ -12,7 +12,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) { // si la session n'est pas active
 $id = $_SESSION['id'];
 
 
-if (empty($id)) {
+if (empty($id) && empty($_SESSION['id'])) {
     header('Location: index.php');
 }
 

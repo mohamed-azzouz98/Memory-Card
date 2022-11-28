@@ -10,23 +10,22 @@ if (session_status() !== PHP_SESSION_ACTIVE) { // si la session n'est pas active
 
 
 
-if (empty($_GET['idTheme']) && empty($_SESSION['id'])) {
+if (empty($_GET['idCat']) && empty($_SESSION['id'])) {
     header('Location: index.php');
 }
 
-$idTheme = $_GET['idTheme'];
+$idCat = $_GET['idCat'];
 
 $id = $_SESSION['id'];
 
 
 $item = new Item();
 
-$deleteCarte = $item->deleteTable($db, $idTheme, $id,'theme');
+$deleteCat = $item->deleteTable($db, $idCat, $id, 'categorie');
 
 
 
-header('Location: listTheme.php?id=' . $id . '');
+header('Location: listCategorie.php?id=' . $id . '');
 
 
 ?>
-

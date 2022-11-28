@@ -42,11 +42,22 @@ $revision = new Revision();
     <?php include('header/header.php'); ?>
     <main>
         <section>
-            Boucle nb jour =>  2^nbCarte - 1
+            <!-- Boucle nb jour =>  2^nbLvl - 1
             boucle nb lvl
-            nbCarte
+            nbCarte 
 
-            if modulo 
+
+            
+            -->
+            
+            <?php
+            
+            for ($i=1; $i <= pow(2, $nbLvl -1); $i++) { 
+                echo $i.'<br>';
+            }
+            
+            ?>
+            
         </section>
         
         

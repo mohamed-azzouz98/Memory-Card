@@ -7,7 +7,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) { // si la session n'est pas active
     session_start(); // on la démarre 
 }
 
-if (empty($_GET['id'])) {
+if (empty($_GET['id']) && empty($_SESSION['id'])) {
     header('Location: index.php');
 }
 
@@ -40,7 +40,7 @@ $user = new User();
                 <div class="tilte">Modifiez vos information</div>
                 
 
-                <form action="profil.php?id=<?php echo $id; ?>" method="post" id="modifyInfo">
+                <form action="" method="post" id="modifyInfo">
                     <div class="inputContainer ic1">
 
 

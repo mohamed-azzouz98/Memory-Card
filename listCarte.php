@@ -7,7 +7,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) { // si la session n'est pas active
     session_start(); // on la démarre 
 }
 
-if (empty($_GET['id']) || empty($_SESSION['id'])) {
+if (empty($_GET['id']) && empty($_SESSION['id'])) {
     header('Location: index.php');
 }
 
@@ -65,7 +65,7 @@ $item = new Item();
                             <td><img src="imgCarte/verso/<?php echo $userCard[$i]['imgVerso'];  ?>" alt=""></td>
                             <td><?php echo $userCard[$i]['date_creation'];  ?></td>
                             <td><?php echo $userCard[$i]['date_modification'];  ?></td>
-                            <td class="button"><a href="updateCarte.php?idCarte=<?php echo $userCard[$i]['id']; ?>"><i class="fa-solid fa-pen-to-square"></i></a></td>
+                            <td class="button"><a href="updateCarte.php?idCarte=<?php echo $userCard[$i]['id']; ?>&&idUser=<?php echo $userCard[$i]['id_user']; ?>"><i class="fa-solid fa-pen-to-square"></i></a></td>
 
                             <td class="button"><a class="hrefDelete" data-id="<?php echo $userCard[$i]['id']; ?>"><i class="fa-solid fa-trash"></i></a></td>
                           

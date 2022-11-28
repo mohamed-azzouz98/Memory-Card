@@ -28,7 +28,7 @@ $id = $_SESSION['id'];
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
     <script src="js/showForm.js" defer></script>
-    <script src="js/showModalIndex.js" defer></script>
+    
     <title>Index</title>
 </head>
 

@@ -272,12 +272,12 @@ form {
 /* ------Update Carte------ */
 /* ------Update Carte------ */
 
-#updateCarte {
+.updateItem {
   display: flex;
   justify-content: space-around;
 }
 
-#updateCarte img {
+.updateItem img {
   width: 20vh;
 }
 

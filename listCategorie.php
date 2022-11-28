@@ -7,7 +7,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) { // si la session n'est pas active
     session_start(); // on la démarre 
 }
 
-if (empty($_GET['id']) || empty($_SESSION['id'])) {
+if (empty($_GET['id']) && empty($_SESSION['id'])) {
     header('Location: index.php');
 }
 
@@ -35,7 +35,7 @@ $item = new Item();
 <body>
     <?php include('header/header.php'); ?>
     <main>
-        <section id="userCard">
+        <section id="userCat">
             <table class="tableListItem">
                 <thead>
                     <tr>
@@ -51,21 +51,17 @@ $item = new Item();
                     </tr>
                     <?php
 
-                    $userCard = $item->getCategorie($db,$idUser);
+                    $userCat = $item->myCategorie($db, $idUser, 'id_user');
 
-                    for ($i = 0; $i < count($userCard); $i++) : ?>
+                    for ($i = 0; $i < count($userCat); $i++) : ?>
                         <tr>
-                            <td><?php echo $userCard[$i]['recto'];  ?></td>
-                            <td><?php echo $userCard[$i]['verso']; ?></td>
-                            <td><img src="imgCarte/recto/<?php echo $userCard[$i]['imgRecto'];  ?>" alt=""></td>
-                            <td><img src="imgCarte/verso/<?php echo $userCard[$i]['imgVerso'];  ?>" alt=""></td>
-                            <td><?php echo $userCard[$i]['date_creation'];  ?></td>
-                            <td><?php echo $userCard[$i]['date_modification'];  ?></td>
-                            <td class="button"><a href="updateCarte.php?idCarte=<?php echo $userCard[$i]['id']; ?>"><i class="fa-solid fa-pen-to-square"></i></a></td>
+                            <td><?php echo $userCat[$i]['nom'];  ?></td>
+                           
+                            <td class="button"><a href="updateCategorie.php?idCat=<?php echo $userCat[$i]['id']; ?>&&idUser=<?php echo $userCat[$i]['id_user']; ?>"><i class="fa-solid fa-pen-to-square"></i></a></td>
 
-                            <td class="button"><a id="hrefDelete"><i class="fa-solid fa-trash"></i></a></td>
+                            <td class="button"><a class="hrefDelete" data-id="<?php echo $userCat[$i]['id']; ?>"><i class="fa-solid fa-trash"></i></a></td>
                           
-                            <input type=hidden id="idCarte" value=<?php echo $userCard[$i]['id']; ?>/>
+                            <input type=hidden id="idCarte" value=<?php echo $userCat[$i]['id']; ?>/>
                             
                         </tr>
                     <?php endfor; ?>
@@ -80,20 +76,24 @@ $item = new Item();
 
     </main>
     <script type="text/javascript">
-        const buttonDelete = document.querySelector('#hrefDelete');
-        const idCarte = document.querySelector('#idCarte').value;
+        const buttonsDelete = document.querySelectorAll('.hrefDelete');
+        
+        
         const id = <?php echo $id; ?>
         
-        buttonDelete.addEventListener('click', () => {
-            
-            if (confirm("Voulez vous vraiment supprimer votre carte ? ") == true) {
-                buttonDelete.setAttribute('href', 'deleteCarte.php?idCarte=' + idCarte + '')
+        buttonsDelete.forEach((e)=> {
+
+            e.addEventListener('click', (event) => {
+            const idCarte = e.dataset.id;
+            if (confirm("Voulez vous vraiment supprimer votre categorie ? ") == true) {
+                window.location = 'deleteCategorie.php?idCat=' + idCarte + ''
                 
                 
             } else {
-                window.location = "listCarte.php?id=" + $id + "";
+                window.location = "listCategorie.php?id=" + $id + "";
             }
-        });
+        })
+    })
     </script>
 
 </body>

@@ -7,7 +7,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) { // si la session n'est pas active
     session_start(); // on la démarre 
 }
 
-if (empty($_GET['idCarte']) || empty($_SESSION['id'])) {
+if (empty($_GET['idCarte']) && empty($_GET['idUser']) && empty($_SESSION['id'])) {
     header('Location: index.php');
 }
 
@@ -37,7 +37,7 @@ $updateCard = $item->getCarteTheme($db, $idCarte);
 <body>
     <?php include('header/header.php'); ?>
     <main>
-        <section id="updateCarte">
+        <section class="updateItem">
             <div id="infoCarte">
                 Question : <?php echo $updateCard[0]['recto']; ?>
                 <br>
@@ -119,7 +119,7 @@ $updateCard = $item->getCarteTheme($db, $idCarte);
                     $recto = $_POST['carteRecto'];
                     $verso = $_POST['carteVerso'];
 
-
+                        
                     filter_input(INPUT_POST, 'recto', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                     filter_input(INPUT_POST, 'verso', FILTER_SANITIZE_FULL_SPECIAL_CHARS);     
 
@@ -128,18 +128,18 @@ $updateCard = $item->getCarteTheme($db, $idCarte);
                     $extensionsValides = $arrayName = array('jpg', 'jpeg', 'gif', 'png');
 
 
-                    if (isset($_POST['updateCarte'])) {
+                    if (isset($_POST['updateCarte']) && ($id == $_GET['idUser'])) {
 
                         if (!empty($recto)) {
-                            $update = $item->updateCarte($db, $idCarte, 'recto', $recto, $dateModification);
+                            $update = $item->updateCarte($db, $idCarte, $id, 'recto', $recto, $dateModification);
                         }
 
                         if (!empty($verso)) {
-                            $update = $item->updateCarte($db, $idCarte, 'verso', $verso, $dateModification);
+                            $update = $item->updateCarte($db, $idCarte, $id, 'verso', $verso, $dateModification);
                         }
 
                         if (!empty($idTheme)) {
-                            $update = $item->updateCarte($db, $idCarte, 'id_theme', $idTheme, $dateModification);
+                            $update = $item->updateCarte($db, $idCarte, $id, 'id_theme', $idTheme, $dateModification);
                         }
 
                         if (!empty($_FILES['imgRecto']['name'])) {
@@ -151,7 +151,7 @@ $updateCard = $item->getCarteTheme($db, $idCarte);
                                     $deplacement = move_uploaded_file($_FILES['imgRecto']['tmp_name'], $chemin);
                                     if ($deplacement) {
                                         $imgRecto = $time . "." . $extensionsUpload;
-                                        $update = $item->updateCarte($db, $idCarte, 'imgRecto', $imgRecto, $dateModification);
+                                        $update = $item->updateCarte($db, $idCarte, $id, 'imgRecto', $imgRecto, $dateModification);
                                     } else {
                                         echo "Erreur durant l'importation de votre image";
                                     }
@@ -172,7 +172,7 @@ $updateCard = $item->getCarteTheme($db, $idCarte);
                                     $deplacement = move_uploaded_file($_FILES['imgVerso']['tmp_name'], $chemin);
                                     if ($deplacement) {
                                         $imgVerso = $time . "." . $extensionsUpload;
-                                        $update = $item->updateCarte($db, $idCarte, 'imgVerso', $imgVerso, $dateModification);
+                                        $update = $item->updateCarte($db, $idCarte, $id, 'imgVerso', $imgVerso, $dateModification);
                                     } else {
                                         echo "Erreur durant l'importation de votre image";
                                     }

@@ -10,7 +10,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) { // si la session n'est pas active
 
 
 
-if (empty($_GET['idCarte']) || empty($_SESSION['id'])) {
+if (empty($_GET['idCarte']) && empty($_SESSION['id'])) {
     header('Location: index.php');
 }
 
@@ -21,7 +21,7 @@ $id = $_SESSION['id'];
 
 $item = new Item();
 
-$deleteCarte = $item->deleteTable($db, $idCarte, 'carte');
+$deleteCarte = $item->deleteTable($db, $idCarte, $id, 'carte');
 
 
 

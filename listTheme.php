@@ -7,7 +7,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) { // si la session n'est pas active
     session_start(); // on la démarre 
 }
 
-if (empty($_GET['id'])) {
+if (empty($_GET['id']) && empty($_SESSION['id'])) {
     header('Location: index.php');
 }
 
@@ -70,7 +70,7 @@ $item = new Item();
                             ?>
                             <td><?php echo $userTheme[$i]['date_creation'];  ?></td>
                            
-                            <td class="button"><a href="updateTheme.php?idTheme=<?php echo $userTheme[$i]['id']; ?>"><i class="fa-solid fa-pen-to-square"></i></a></td>
+                            <td class="button"><a href="updateTheme.php?idTheme=<?php echo $userTheme[$i]['id']; ?>&&idUser=<?php echo $userTheme[$i]['id_user']; ?>"><i class="fa-solid fa-pen-to-square"></i></a></td>
 
                             <td class="button"><a class="hrefDelete" data-id="<?php echo $userTheme[$i]['id']; ?>"><i class="fa-solid fa-trash"></i></a></td>
                           

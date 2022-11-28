@@ -12,7 +12,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) { // si la session n'est pas active
 $id_User = $_SESSION['id'];
 
 
-if (empty($id_User)) {
+if (empty($id_User) && empty($_SESSION['id'])) {
     header('Location: index.php');
 }
 
@@ -107,12 +107,15 @@ $item = new Item();
 
                 if (isset($_POST['newCarte'])) 
                 {
+                    $flagRecto = 0;
+                    $flagVerso = 0;
+
                     $tailleMax = 2097152;
                     $extensionsValides = $arrayName = array('jpg', 'jpeg', 'gif', 'png');
                     
                     
                     if ($_FILES['imgRecto']['size'] < $tailleMax) {
-                        echo $_FILES['imgRecto']['size'];
+                       
                         $extensionsUpload = strtolower(substr(strrchr($_FILES['imgRecto']['name'], '.'), 1));
                         if (in_array($extensionsUpload, $extensionsValides)) {
                             $chemin = "imgCarte/recto/" . $time . "." . $extensionsUpload;
@@ -160,6 +163,25 @@ $item = new Item();
                         $newCarte = $item->addCarte($db, $id_User, $idTheme, $recto, $verso, $imgRecto, $imgVerso, $dateCreation, $dateCreation);
                         header('Location: index.php');
                     }
+                    elseif($flagRecto == 0 && $flagVerso == 1){
+                        $imgRecto = NULL;
+                        $newCarte = $item->addCarte($db, $id_User, $idTheme, $recto, $verso, $imgRecto, $imgVerso, $dateCreation, $dateCreation);
+                        header('Location: index.php');
+                    }
+                    elseif($flagRecto == 1 && $flagVerso == 0){
+                        $imgVerso = NULL;
+                        $newCarte = $item->addCarte($db, $id_User, $idTheme, $recto, $verso, $imgRecto, $imgVerso, $dateCreation, $dateCreation);
+                        header('Location: index.php');
+                    }else{
+                        $imgRecto = NULL;
+                        $imgVerso = NULL;
+                        $newCarte = $item->addCarte($db, $id_User, $idTheme, $recto, $verso, $imgRecto, $imgVerso, $dateCreation, $dateCreation);
+                        header('Location: index.php');
+                    }
+
+                    
+
+                    
                     
                     
                 }
