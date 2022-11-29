@@ -19,6 +19,8 @@ if (empty($id_User) && empty($_SESSION['id'])) {
 $user = new User();
 $item = new Item();
 
+
+
 ?>
 
 <!DOCTYPE html>
@@ -70,11 +72,13 @@ $item = new Item();
                     <label for="listTheme">Theme : </label>
                     <select name="listTheme" id="listTheme" required>
                         <?php
-                        $getTheme = $item->getTheme($db);
+
+                        $theme = $item->themeUser($db, $id_User);
 
 
-                        for ($i = 0; $i < count($getTheme); $i++) : ?>
-                            <option value='<?php echo $getTheme[$i]['id']; ?>'><?php echo $getTheme[$i]['nom']; ?></option>
+
+                        for ($i = 0; $i < count($theme); $i++) : ?>
+                            <option value='<?php echo $theme[$i]['id']; ?>'><?php echo $theme[$i]['nom']; ?></option>
                         <?php
                         endfor;
 
@@ -92,7 +96,7 @@ $item = new Item();
                 $time = time();
 
                 $dateCreation = date('Y-m-d');
-                
+
 
                 $idTheme = $_POST['listTheme'];
 
@@ -101,32 +105,30 @@ $item = new Item();
 
                 filter_input(INPUT_POST, 'recto', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                 filter_input(INPUT_POST, 'verso', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-                
 
 
 
-                if (isset($_POST['newCarte'])) 
-                {
+
+                if (isset($_POST['newCarte'])) {
                     $flagRecto = 0;
                     $flagVerso = 0;
 
                     $tailleMax = 2097152;
                     $extensionsValides = $arrayName = array('jpg', 'jpeg', 'gif', 'png');
-                    
-                    
+
+
                     if ($_FILES['imgRecto']['size'] < $tailleMax) {
-                       
+
                         $extensionsUpload = strtolower(substr(strrchr($_FILES['imgRecto']['name'], '.'), 1));
                         if (in_array($extensionsUpload, $extensionsValides)) {
                             $chemin = "imgCarte/recto/" . $time . "." . $extensionsUpload;
-                            
+
                             $deplacement = move_uploaded_file($_FILES['imgRecto']['tmp_name'], $chemin);
                             if ($deplacement) {
                                 $imgRecto = $time . "." . $extensionsUpload;
                                 $flagRecto = '1';
-                                
                             } else {
-                                
+
                                 echo "Erreur durant l'importation de votre image Recto<br>";
                             }
                         } else {
@@ -145,11 +147,8 @@ $item = new Item();
                             if ($deplacement) {
                                 $imgVerso = $time . "." . $extensionsUpload;
                                 $flagVerso = '1';
-
-
-                                
                             } else {
-                               
+
                                 echo "Erreur durant l'importation de votre image verso<br>";
                             }
                         } else {
@@ -159,31 +158,23 @@ $item = new Item();
                         echo "Votre image verso ne doit pas dépasser 2Mo<br>";
                     }
 
-                    if($flagRecto == 1 && $flagVerso == 1){
+                    if ($flagRecto == 1 && $flagVerso == 1) {
                         $newCarte = $item->addCarte($db, $id_User, $idTheme, $recto, $verso, $imgRecto, $imgVerso, $dateCreation, $dateCreation);
                         header('Location: index.php');
-                    }
-                    elseif($flagRecto == 0 && $flagVerso == 1){
+                    } elseif ($flagRecto == 0 && $flagVerso == 1) {
                         $imgRecto = NULL;
                         $newCarte = $item->addCarte($db, $id_User, $idTheme, $recto, $verso, $imgRecto, $imgVerso, $dateCreation, $dateCreation);
                         header('Location: index.php');
-                    }
-                    elseif($flagRecto == 1 && $flagVerso == 0){
+                    } elseif ($flagRecto == 1 && $flagVerso == 0) {
                         $imgVerso = NULL;
                         $newCarte = $item->addCarte($db, $id_User, $idTheme, $recto, $verso, $imgRecto, $imgVerso, $dateCreation, $dateCreation);
                         header('Location: index.php');
-                    }else{
+                    } else {
                         $imgRecto = NULL;
                         $imgVerso = NULL;
                         $newCarte = $item->addCarte($db, $id_User, $idTheme, $recto, $verso, $imgRecto, $imgVerso, $dateCreation, $dateCreation);
                         header('Location: index.php');
                     }
-
-                    
-
-                    
-                    
-                    
                 }
 
 

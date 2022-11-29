@@ -35,31 +35,25 @@ $item = new Item();
 <body>
     <?php include('header/header.php'); ?>
     <main>
-        <section id="userCat">
-            <table class="tableListItem">
-                <thead>
-                    <tr>
-                        <th colspan="8">Liste de categorie crée</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Nom </td>
-                       
-                        <td></td>
-                        <td></td>
-                    </tr>
+        <h1>Mes catégories crées</h1>
+        <section class="listItemUser"">
+            
                     <?php
 
                     $userCat = $item->myCategorie($db, $idUser, 'id_user');
 
                     for ($i = 0; $i < count($userCat); $i++) : ?>
-                        <tr>
-                            <td><?php echo $userCat[$i]['nom'];  ?></td>
-                           
-                            <td class="button"><a href="updateCategorie.php?idCat=<?php echo $userCat[$i]['id']; ?>&&idUser=<?php echo $userCat[$i]['id_user']; ?>"><i class="fa-solid fa-pen-to-square"></i></a></td>
+                       <div class="divListItem">
+                        <p>Nom : <?php echo $userCat[$i]['nom'];  ?></p>
+                        <p><a href="updateCategorie.php?idCat=<?php echo $userCat[$i]['id']; ?>&&idUser=<?php echo $userCat[$i]['id_user']; ?>"><i class="fa-solid fa-pen-to-square"></i></a></p>
+                        <p><a class="hrefDelete" data-id="<?php echo $userCat[$i]['id']; ?>"><i class="fa-solid fa-trash"></i></a></p>
 
-                            <td class="button"><a class="hrefDelete" data-id="<?php echo $userCat[$i]['id']; ?>"><i class="fa-solid fa-trash"></i></a></td>
+                       </div>
+                            <td></td>
+                           
+                            <td class="button"></td>
+
+                            <td class="button"></td>
                           
                             <input type=hidden id="idCarte" value=<?php echo $userCat[$i]['id']; ?>/>
                             

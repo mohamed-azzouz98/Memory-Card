@@ -26,7 +26,7 @@ if (isset($_POST['submitInfo'])) {
         
 
     }else{
-        echo 'fdsfdsfsdfsd';
+        echo 'Ce n\'est pas votre compte';
     }
 
     if(!empty($email) && ($id == $_GET['id'])){
@@ -38,6 +38,8 @@ if (isset($_POST['submitInfo'])) {
         }
         
 
+    }else{
+        echo 'Ce n\'est pas votre compte';
     }
 
 

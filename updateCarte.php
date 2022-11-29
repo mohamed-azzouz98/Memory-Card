@@ -38,7 +38,7 @@ $updateCard = $item->getCarteTheme($db, $idCarte);
     <?php include('header/header.php'); ?>
     <main>
         <section class="updateItem">
-            <div id="infoCarte">
+            <div class="divListItem">
                 Question : <?php echo $updateCard[0]['recto']; ?>
                 <br>
                 <br>

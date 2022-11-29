@@ -39,7 +39,7 @@ $infoCat = $item->myCategorie($db, $_GET['idCat'], 'id')
     <?php include('header/header.php'); ?>
     <main>
         <section class="updateItem">
-            <div id="infoCat">
+            <div class="divListItem">
                 Nom : <?php echo $infoCat[0]['nom']; ?>
             </div>
 

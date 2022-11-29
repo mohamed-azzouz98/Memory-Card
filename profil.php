@@ -108,10 +108,10 @@ $user = new User();
             <section id="rightSection">
                 <div id="listData">
 
-                    <div><a href="listCarte.php?id=<?php echo $id; ?>">Mes cartes</a></div>
-                    <div><a href="listTheme.php?id=<?php echo $id; ?>">Mes Themes</a></div>
-                    <div><a href="listCategorie.php?id=<?php echo $id; ?>">Mes Categorie</a></div>
-                    <div><a href="myRevision.php?id=<?php echo $id; ?>">Mes révisions</a></div>
+                    <div class="myItems"><a href="listCarte.php?id=<?php echo $id; ?>">Mes cartes</a></div>
+                    <div class="myItems"><a href="listTheme.php?id=<?php echo $id; ?>">Mes Themes</a></div>
+                    <div class="myItems"><a href="listCategorie.php?id=<?php echo $id; ?>">Mes Categorie</a></div>
+                    <div class="myItems"><a href="myRevision.php?id=<?php echo $id; ?>">Mes révisions</a></div>
                     
                 </div>
 

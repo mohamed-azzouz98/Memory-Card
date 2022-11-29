@@ -9,6 +9,25 @@ main {
 }
 
 
+
+/* ------Header------ */
+/* ------Header------ */
+/* ------Header------ */
+/* ------Header------ */
+/* ------Header------ */
+
+
+nav ul{
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  list-style-type: none;
+  padding: 10px;
+  font-size: 20px;
+}
+
+
+
 /* ------Index------ */
 /* ------Index------ */
 /* ------Index------ */
@@ -177,6 +196,12 @@ form {
   margin: 0 auto;
   background-color: #A674C5;
   height: 100vh;
+  font-size: 20px;
+}
+
+#listCatTheme li{
+  list-style-type: none;
+  padding-left: 30px;
 }
 
 #listCatTheme h1 {
@@ -185,11 +210,16 @@ form {
 }
 
 .buttonAdd {
-  padding: 5px;
+  padding: 7px;
   background-color: #A674C5;
-  color: white;
-  font-size: 15px;
+  color: #EEE;
+  font-size: 20px;
   cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.buttonAdd a:visited{
+  color: #EEE;
 }
 
 
@@ -200,6 +230,7 @@ form {
 /* ------Profil------ */
 #dataUser {
   width: 90%;
+  
   margin: 0 auto;
   background-color: #A674C5;
 
@@ -222,6 +253,23 @@ form {
   width: 50%;
 }
 
+
+#listData{
+  display: flex;
+  flex-wrap: wrap;
+  
+}
+
+.myItems{
+  width: 30%;
+  background-color: #EEE;
+  padding: 10px;
+  margin: 10px;
+  font-size: 20px;
+  border-radius: 20px;
+  text-align: center;
+  
+}
 
 
 
@@ -247,23 +295,31 @@ form {
 /* ------List Item------ */
 /* ------List Item------ */
 
-.tableListItem td {
-  width: 20vh;
-  height: 15vh;
-  border: 2px solid #333;
+.listItemUser{
+
+  display: flex;
+  flex-wrap: wrap;
+  
 }
 
-.tableListItem {
+.divListItem{
+  width: 20%;
+  font-size: 17px;
+  padding: 10px;
   text-align: center;
+  background-color: #EEE;
+  margin-left: 10px;
+  margin-top: 10px;
 }
 
-.tableListItem img {
-  width: 20vh;
+.divListItem i{
+  font-size: 20px;
 }
 
-.tableListItem i {
-  font-size: 50px;
+.divListItem img{
+  width: 40%;
 }
+
 
 
 /* ------Update Carte------ */

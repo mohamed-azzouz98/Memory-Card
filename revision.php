@@ -9,7 +9,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) { // si la session n'est pas active
     session_start(); // on la démarre 
 }
 
-if (empty($_GET['nbCarte']) || empty($_GET['nbLvl']) || empty($_SESSION['id'])) {
+if (empty($_GET['nbCarte']) || empty($_GET['nbLvl']) && empty($_SESSION['id'])) {
     header('Location: index.php');
 }
 
@@ -34,7 +34,7 @@ $revision = new Revision();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
 
-    <script src="js/revision.js" defer></script>
+    
     <title>Revision Theme</title>
 </head>
 
@@ -42,21 +42,9 @@ $revision = new Revision();
     <?php include('header/header.php'); ?>
     <main>
         <section>
-            <!-- Boucle nb jour =>  2^nbLvl - 1
-            boucle nb lvl
-            nbCarte 
-
-
+          
             
-            -->
-            
-            <?php
-            
-            for ($i=1; $i <= pow(2, $nbLvl -1); $i++) { 
-                echo $i.'<br>';
-            }
-            
-            ?>
+           
             
         </section>
         

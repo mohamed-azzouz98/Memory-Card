@@ -87,6 +87,17 @@ class Item{
 
         return $requetePreparee->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function themeUser($db, $id){
+        $requeteSQL = "SELECT * FROM theme WHERE public = 1 UNION SELECT * FROM theme WHERE id_user = :id AND public = 0";
+
+        $requetePreparee = $db->prepare($requeteSQL);
+        
+        $requetePreparee->bindValue(':id', $id, PDO::PARAM_INT);
+        $requetePreparee->execute();
+
+        return $requetePreparee->fetchAll(PDO::FETCH_ASSOC);
+    }
     
     /**
      * Fonction qui permet de recup les cartes avec une colonne en parametre

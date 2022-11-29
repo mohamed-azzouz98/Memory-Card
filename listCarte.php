@@ -35,73 +35,52 @@ $item = new Item();
 <body>
     <?php include('header/header.php'); ?>
     <main>
-        <section id="userCard">
-            <table class="tableListItem">
-                <thead>
-                    <tr>
-                        <th colspan="8">Liste de cartes crée</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Question </td>
-                        <td>Reponse</td>
-                        <td>Img Recto</td>
-                        <td>Img Verso</td>
-                        <td>Date de Creation</td>
-                        <td>Date de modification</td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <?php
-
-                    $userCard = $item->getCarteByColumn($db, 'id_user', $idUser);
-
-                    for ($i = 0; $i < count($userCard); $i++) : ?>
-                        <tr>
-                            <td><?php echo $userCard[$i]['recto'];  ?></td>
-                            <td><?php echo $userCard[$i]['verso']; ?></td>
-                            <td><img src="imgCarte/recto/<?php echo $userCard[$i]['imgRecto'];  ?>" alt=""></td>
-                            <td><img src="imgCarte/verso/<?php echo $userCard[$i]['imgVerso'];  ?>" alt=""></td>
-                            <td><?php echo $userCard[$i]['date_creation'];  ?></td>
-                            <td><?php echo $userCard[$i]['date_modification'];  ?></td>
-                            <td class="button"><a href="updateCarte.php?idCarte=<?php echo $userCard[$i]['id']; ?>&&idUser=<?php echo $userCard[$i]['id_user']; ?>"><i class="fa-solid fa-pen-to-square"></i></a></td>
-
-                            <td class="button"><a class="hrefDelete" data-id="<?php echo $userCard[$i]['id']; ?>"><i class="fa-solid fa-trash"></i></a></td>
-                          
-                            <input type=hidden class="idCarte" value=<?php echo $userCard[$i]['id']; ?>/>
-                            
-                        </tr>
-                    <?php endfor; ?>
-
-                </tbody>
-               
+        <h1>Mes cartes crées</h1>
+        <section class="listItemUser">
 
 
-            </table>
-            
+            <?php
+
+            $userCard = $item->getCarteByColumn($db, 'id_user', $idUser);
+
+            for ($i = 0; $i < count($userCard); $i++) : ?>
+                <div class="divListItem">
+                    <p>Recto : <?php echo $userCard[$i]['recto'];  ?></p>
+                    <p>Verso : <?php echo $userCard[$i]['verso']; ?></p>
+                    <p>Img Recto : <br>  <img src="imgCarte/recto/<?php echo $userCard[$i]['imgRecto'];  ?>" alt=""></p>
+                    <p>Img Verso : <br> <img src="imgCarte/verso/<?php echo $userCard[$i]['imgVerso'];  ?>" alt=""></p>
+                    <p>Date de creation : <?php echo $userCard[$i]['date_creation'];  ?></p>
+                    <p>Date de modification : <?php echo $userCard[$i]['date_modification'];  ?></p>
+                    <p class="button"><a href="updateCarte.php?idCarte=<?php echo $userCard[$i]['id']; ?>&&idUser=<?php echo $userCard[$i]['id_user']; ?>"><i class="fa-solid fa-pen-to-square"></i></a></p>
+                    <p class="button"><a class="hrefDelete" data-id="<?php echo $userCard[$i]['id']; ?>"><i class="fa-solid fa-trash"></i></a></p>
+                </div>
+
+            <?php endfor; ?>
+
+
+
         </section>
 
     </main>
     <script type="text/javascript">
         const buttonsDelete = document.querySelectorAll('.hrefDelete');
-        
-        
+
+
         const id = <?php echo $id; ?>
-        
-        buttonsDelete.forEach((e)=> {
+
+        buttonsDelete.forEach((e) => {
 
             e.addEventListener('click', (event) => {
-            const idCarte = e.dataset.id;
-            if (confirm("Voulez vous vraiment supprimer votre carte ? ") == true) {
-                window.location = 'deleteCarte.php?idCarte=' + idCarte + ''
-                
-                
-            } else {
-                window.location = "listCarte.php?id=" + $id + "";
-            }
+                const idCarte = e.dataset.id;
+                if (confirm("Voulez vous vraiment supprimer votre carte ? ") == true) {
+                    window.location = 'deleteCarte.php?idCarte=' + idCarte + ''
+
+
+                } else {
+                    window.location = "listCarte.php?id=" + $id + "";
+                }
+            })
         })
-    })
     </script>
 
 </body>

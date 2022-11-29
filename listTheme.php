@@ -34,81 +34,56 @@ $item = new Item();
 <body>
     <?php include('header/header.php'); ?>
     <main>
-        <section id="themeUser">
-            <table class="tableListItem">
-                <thead>
-                    <tr>
-                        <th colspan="8">Liste de themes crée</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Nom </td>
-                        <td>Description</td>
-                        <td>Statue</td>
-                        <td>Date de Creation</td>
-                   
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <?php
+        <h1>Mes themes crées</h1>
+        <section class="listItemUser">
 
-                    $userTheme = $item->getThemeByColumn($db, 'id_user', $idUser);
-                   
+            <?php
 
-                    for ($i = 0; $i < count($userTheme); $i++) : ?>
-                        <tr>
-                            <td><?php echo $userTheme[$i]['nom'];  ?></td>
-                            <td><?php echo $userTheme[$i]['description']; ?></td>
-                            <?php if($userTheme[$i]['public'] == 0 ){?>
-                                <td>Privé</td>
-                            <?php 
-                            }
-                            else{
-                                echo '<td>Public</td>';
-                            }                           
-                            ?>
-                            <td><?php echo $userTheme[$i]['date_creation'];  ?></td>
-                           
-                            <td class="button"><a href="updateTheme.php?idTheme=<?php echo $userTheme[$i]['id']; ?>&&idUser=<?php echo $userTheme[$i]['id_user']; ?>"><i class="fa-solid fa-pen-to-square"></i></a></td>
-
-                            <td class="button"><a class="hrefDelete" data-id="<?php echo $userTheme[$i]['id']; ?>"><i class="fa-solid fa-trash"></i></a></td>
-                          
-                           
-                            
-                        </tr>
-                    <?php endfor; ?>
-
-                </tbody>
-               
+            $userTheme = $item->getThemeByColumn($db, 'id_user', $idUser);
 
 
-            </table>
-            
+            for ($i = 0; $i < count($userTheme); $i++) : ?>
+                <div class="divListItem">
+                    <p>Nom : <?php echo $userTheme[$i]['nom'];  ?></p>
+                    <p>Description : <?php echo $userTheme[$i]['description']; ?></p>
+                    <p>Statut : <?php if ($userTheme[$i]['public'] == 0) { ?>
+                            Privé
+                        <?php
+                                } else {
+                                    echo 'Public';
+                                }
+                        ?></p>
+                    <p>Date De creation : <?php echo $userTheme[$i]['date_creation'];  ?> </p>
+                    <p class="button"><a href="updateTheme.php?idTheme=<?php echo $userTheme[$i]['id']; ?>&&idUser=<?php echo $userTheme[$i]['id_user']; ?>"><i class="fa-solid fa-pen-to-square"></i></a></p>
+                    <p class="button"><a class="hrefDelete" data-id="<?php echo $userTheme[$i]['id']; ?>"><i class="fa-solid fa-trash"></i></a></p>
+                </div>
+
+            <?php endfor; ?>
+
+
+
         </section>
 
     </main>
     <script type="text/javascript">
-        
-
         const buttonsDelete = document.querySelectorAll('.hrefDelete');
-        
-        
+
+
         const id = <?php echo $id; ?>
-        
-        buttonsDelete.forEach((e)=> {
+
+        buttonsDelete.forEach((e) => {
 
             e.addEventListener('click', (event) => {
-            const idTheme = e.dataset.id;
-            if (confirm("Voulez vous vraiment supprimer votre theme ? ") == true) {
-                window.location = 'deleteTheme.php?idTheme=' + idTheme + ''
-                
-                
-            } else {
-                window.location = "listTheme.php?id=" + $id + "";
-            }
+                const idTheme = e.dataset.id;
+                if (confirm("Voulez vous vraiment supprimer votre theme ? ") == true) {
+                    window.location = 'deleteTheme.php?idTheme=' + idTheme + ''
+
+
+                } else {
+                    window.location = "listTheme.php?id=" + $id + "";
+                }
+            })
         })
-    })
     </script>
 
 </body>

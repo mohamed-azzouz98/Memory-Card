@@ -1,9 +1,10 @@
-<section>
+<section id="allCatTheme">
     <?php
     $getCategorie = $item->getCategorie($db);
     
     for ($i=0; $i < count($getCategorie) ; $i++): ?>
     <div>
+        
         <?php 
         $idCat = $getCategorie[$i]['id'];
         $getThemeByCat = $item->getThemeByColumn($db, 'id_categorie', $idCat);

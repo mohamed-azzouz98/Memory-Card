@@ -37,7 +37,7 @@ $updateTheme = $item->getThemeCategorie($db, $idTheme);
     <?php include('header/header.php'); ?>
     <main>
         <section class="updateItem">
-            <div>
+            <div class="divListItem">
                 categorie : <?php echo $updateTheme[0]['nomCategorie']; ?>
                 <br>
                 <br>
