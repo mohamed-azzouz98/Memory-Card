@@ -87,3 +87,25 @@ CREATE TABLE IF NOT EXISTS revoit(
 );
 
 
+
+-- Données de test
+
+
+-- Mot de pass : gloria123 --
+INSERT INTO user(pseudo, password, email) VALUE('gloria','$2y$10$FE6KSzEhS6u4LGaHwsohvOkbw/p8eVUDWc05gAghq0SBqzTNOGgta','gloria@gmail.com');
+
+-- Mot de pass : melman123 --
+INSERT INTO user(pseudo, password, email) VALUE('melman','$2y$10$UWIuiRMjgO06ByNFNhp1Jur/Ket.IKYLwxD3bUmLPoKUywi5VZ3hi','melman@gmail.com');
+
+INSERT INTO categorie(id_user, nom) VALUE(1, 'sport');
+INSERT INTO categorie(id_user, nom) VALUE(2, 'language web');
+
+INSERT INTO theme(id_user, id_categorie, nom, description, public, date_creation) VALUE(1, 1, 'basket', 'question sur les joueurs de basket', 0, '2022-11-30');
+INSERT INTO theme(id_user, id_categorie, nom, description, public, date_creation) VALUE(1, 2, 'html/css', 'question sur les balise hmtl et css', 1, '2022-11-30');
+
+INSERT INTO theme(id_user, id_categorie, nom, description, public, date_creation) VALUE(2, 1, 'foot', 'question sur les joueurs de foot', 0, '2022-11-30');
+INSERT INTO theme(id_user, id_categorie, nom, description, public, date_creation) VALUE(2, 2, 'javascript', 'question sur le fonctionnement des script js', 1, '2022-11-30');
+
+INSERT INTO carte(id_user, id_theme, recto, verso, imgRecto, imgVerso, date_creation, date_modification) VALUE(1, 1, 'Quel joueur est connu pour ses 3pts ?', 'Stephen Curry', NULL, NULL, '2022-11-30', '2022-11-30');
+INSERT INTO carte(id_user, id_theme, recto, verso, imgRecto, imgVerso, date_creation, date_modification) VALUE(2, 3, 'Quel joueur a remporté le ballon dor en 2022 ?', 'Karim Benzema', NULL, NULL, '2022-11-30', '2022-11-30');
+
