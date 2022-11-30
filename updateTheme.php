@@ -76,6 +76,8 @@ $updateTheme = $item->getThemeCategorie($db, $idTheme);
                         <label for="descTheme" class="placeholder">Description : </label>
                     </div>
 
+                    <br>
+
                     <div class="selectItem">
                         <label for="listCat">Categorie : </label>
                         <select name="listCat" id="listCat">
@@ -93,63 +95,89 @@ $updateTheme = $item->getThemeCategorie($db, $idTheme);
                         </select>
                     </div>
 
+                    <br>
+
                     <div>
                         <label for="publicTheme">Public ? : </label>
-                        <?php if($updateTheme[0]['public'] == 0): ?>
+                        <?php if ($updateTheme[0]['public'] == 0) : ?>
                             <input type="checkbox" name="publicTheme" id="publicTheme">
-                        <?php endif; 
-                        if ($updateTheme[0]['public'] == 1) :?>
+                        <?php endif;
+                        if ($updateTheme[0]['public'] == 1) : ?>
                             <input type="checkbox" name="publicTheme" id="publicTheme" checked>
                         <?php endif; ?>
                     </div>
 
                     <input type="submit" value="Update" name="updateTheme" class="submit">
+                    <?php
+
+                    $idCategorie = $_POST['listCat'];
+                    $public = $_POST['publicTheme'];
+                    $nom = $_POST['nameTheme'];
+                    $desc = $_POST['descTheme'];
+
+                    $showError = 0;
+
+
+                    filter_input(INPUT_POST, 'nom', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                    filter_input(INPUT_POST, 'desc', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+
+
+                    if (isset($_POST['updateTheme']) && ($id == $_GET['idUser'])) {
+
+
+
+                        if (!empty($nom)) {
+                            $sansAccent = $item->deleteAccent($nom);
+                            $theme = strtolower($sansAccent);
+                            $getTheme = $item->getTheme($db);
+                            $allName = [];
+
+
+                            for ($i = 0; $i < count($getTheme); $i++) {
+
+                                array_push($allName, $getTheme[$i]['nom']);
+                            }
+
+
+                            json_encode(array_values($allName));
+
+
+                            if (in_array($theme, $allName)) {
+                                echo "<div class='error'>Ce nom de theme existe déja</div>";
+                                $showError++;
+                            } else {
+                                $update = $item->updateTheme($db, $idTheme, $id, 'nom', $nom);
+                            }
+                        }
+
+                        if (!empty($desc)) {
+                            $update = $item->updateTheme($db, $idTheme, $id, 'description', $desc);
+                        }
+
+                        if (isset($public)) {
+                            $public = 1;
+                            $update = $item->updateTheme($db, $idTheme, $id, 'public', $public);
+                        } else {
+                            $public = 0;
+                            $update = $item->updateTheme($db, $idTheme, $id, 'public', $public);
+                        }
+
+                        if (!empty($idCategorie)) {
+                            $update = $item->updateTheme($db, $idTheme, $id, 'id_categorie', $idCategorie);
+                        }
+
+
+                        if($showError == 0){
+                            header('Location: listTheme.php?id=' . $id . '');
+                        }
+                        
+                    }
+                    ?>
                 </form>
-                <?php 
-                
-                $idCategorie = $_POST['listCat'];
-                $public = $_POST['publicTheme'];
-                $nom = $_POST['nameTheme'];
-                $desc = $_POST['descTheme'];
 
-              
-
-                    
-                filter_input(INPUT_POST, 'nom', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-                filter_input(INPUT_POST, 'desc', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-
-                
-                
-                if (isset($_POST['updateTheme']) && ($id == $_GET['idUser'])) {
-                   
-                    
-                    
-                    if(!empty($nom)){
-                        $update = $item->updateTheme($db, $idTheme, $id, 'nom', $nom);
-                    }
-
-                    if(!empty($desc)){
-                        $update = $item->updateTheme($db, $idTheme, $id, 'description', $desc);
-                    }
-
-                    if(isset($public)){
-                        $public = 1;
-                        $update = $item->updateTheme($db, $idTheme, $id, 'public', $public);
-                    }else{
-                        $public = 0;
-                        $update = $item->updateTheme($db, $idTheme, $id, 'public', $public);
-                    }
-
-                    if(!empty($idCategorie)){
-                        $update = $item->updateTheme($db, $idTheme, $id, 'id_categorie', $idCategorie);
-                    }
-
-                    
-                    header('Location: listTheme.php?id='.$id.'');
-                }
-                ?>
             </div>
-            
+
         </section>
     </main>
 

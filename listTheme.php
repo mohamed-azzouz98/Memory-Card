@@ -12,6 +12,7 @@ if (empty($_GET['id']) && empty($_SESSION['id'])) {
 }
 
 $idUser = $_SESSION['id'];
+$id = $_GET['id'];
 
 
 $item = new Item();
