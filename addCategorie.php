@@ -39,6 +39,7 @@ $item = new Item();
 <body>
     <?php include('header/header.php') ?>
     <main>
+        <h1>Nouvelle Categorie</h1>
         <section class="formAddNew">
             <form action="" method="post">
                 <div class="inputContainer ic1">
@@ -71,7 +72,7 @@ $item = new Item();
                         json_encode(array_values($allName));
 
                         if (in_array($categorie, $allName)) {
-                            echo "Ce nom de categorie existe déja";
+                            echo "<div class='error'>Ce nom de categorie existe déja</div>";
                         } else {
                             $addCategorie = $item->addCategorie($db, $categorie, $id);
                             header('Location: index.php?id="' . $id . '"');

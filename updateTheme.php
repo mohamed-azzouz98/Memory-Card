@@ -38,7 +38,7 @@ $updateTheme = $item->getThemeCategorie($db, $idTheme);
     <main>
         <section class="updateItem">
             <div class="divListItem">
-                categorie : <?php echo $updateTheme[0]['nomCategorie']; ?>
+                Categorie : <?php echo $updateTheme[0]['nomCategorie']; ?>
                 <br>
                 <br>
                 Nom: <?php echo $updateTheme[0]['nomTheme']; ?>
@@ -76,7 +76,7 @@ $updateTheme = $item->getThemeCategorie($db, $idTheme);
                         <label for="descTheme" class="placeholder">Description : </label>
                     </div>
 
-                    <div>
+                    <div class="selectItem">
                         <label for="listCat">Categorie : </label>
                         <select name="listCat" id="listCat">
                             <option value="">---Categorie---</option>

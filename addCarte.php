@@ -68,9 +68,9 @@ $item = new Item();
 
                 <br>
 
-                <div>
+                <div class="selectItem">
                     <label for="listTheme">Theme : </label>
-                    <select name="listTheme" id="listTheme" required>
+                    <select name="listTheme" class="listTheme" required>
                         <?php
 
                         $theme = $item->themeUser($db, $id_User);

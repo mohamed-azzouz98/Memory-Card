@@ -85,16 +85,16 @@ $updateCard = $item->getCarteTheme($db, $idCarte);
 
                     <br>
 
-                    <div>
+                    <div class="selectItem">
                         <label for="listTheme">Theme : </label>
-                        <select name="listTheme" id="listTheme">
+                        <select name="listTheme" class="listTheme">
                             <option value="">-----Theme-----</option>
                             <?php
-                            $getTheme = $item->getTheme($db);
+                            $theme = $item->themeUser($db, $id);
 
 
-                            for ($i = 0; $i < count($getTheme); $i++) : ?>
-                                <option value='<?php echo $getTheme[$i]['id']; ?>'><?php echo $getTheme[$i]['nom']; ?></option>
+                            for ($i = 0; $i < count($theme); $i++) : ?>
+                                <option value='<?php echo $theme[$i]['id']; ?>'><?php echo $theme[$i]['nom']; ?></option>
                             <?php
                             endfor;
 

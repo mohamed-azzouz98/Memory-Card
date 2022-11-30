@@ -53,7 +53,9 @@ if (empty($id) && empty($_SESSION['id'])) {
                     <label for="descTheme" class="placeholder">Description : </label>
                 </div>
 
-                <div>
+                <br>
+
+                <div class="selecItem">
                     <label for="listCat">Categorie : </label>
                     <select name="listCat" id="listCat" required>
                         <?php
@@ -69,57 +71,60 @@ if (empty($id) && empty($_SESSION['id'])) {
                     </select>
                 </div>
 
+                <br>
+
                 <div>
                     <label for="publicTheme">Public ? : </label>
                     <input type="checkbox" name="publicTheme" id="publicTheme">
                 </div>
 
                 <input type="submit" value="Ajouter" name="newTheme" class="submit">
-            </form>
-            
-            <?php
-            if(isset($_POST['newTheme'])){
-                $nameTheme = $_POST['nameTheme'];
-                $descTheme = $_POST['descTheme'];
-                $idCategorie = $_POST['listCat'];
+                <?php
+                if (isset($_POST['newTheme'])) {
+                    $nameTheme = $_POST['nameTheme'];
+                    $descTheme = $_POST['descTheme'];
+                    $idCategorie = $_POST['listCat'];
 
-                if(isset($_POST['publicTheme'])){
-                    $public = 1;
-                }else{
-                    $public = 0;
-                }
-
-                $dateCreation = date('Y-m-d');
-
-                
-                
-                if(!empty($nameTheme) && filter_input(INPUT_POST, 'nameTheme', FILTER_SANITIZE_FULL_SPECIAL_CHARS)){
-                    
-                    $sansAccent = $item->deleteAccent($nameTheme);
-                    $theme = strtolower($sansAccent);
-                    $getTheme = $item->getTheme($db);
-                    $allName = [];
-                    
-
-                    for ($i = 0; $i < count($getTheme); $i++) {
-
-                        array_push($allName, $getTheme[$i]['nom']);
-                    }
-
-
-                    json_encode(array_values($allName));
-                   
-
-                    if (in_array($theme, $allName)) {
-                        echo "Ce nom de theme existe déja";
+                    if (isset($_POST['publicTheme'])) {
+                        $public = 1;
                     } else {
-                        $addTheme = $item->addTheme($db, $id, $idCategorie, $theme, $descTheme, $public, $dateCreation);
-                        
-                        header('Location: index.php?id="' . $id . '"');
+                        $public = 0;
+                    }
+
+                    $dateCreation = date('Y-m-d');
+
+
+
+                    if (!empty($nameTheme) && filter_input(INPUT_POST, 'nameTheme', FILTER_SANITIZE_FULL_SPECIAL_CHARS)) {
+
+                        $sansAccent = $item->deleteAccent($nameTheme);
+                        $theme = strtolower($sansAccent);
+                        $getTheme = $item->getTheme($db);
+                        $allName = [];
+
+
+                        for ($i = 0; $i < count($getTheme); $i++) {
+
+                            array_push($allName, $getTheme[$i]['nom']);
+                        }
+
+
+                        json_encode(array_values($allName));
+
+
+                        if (in_array($theme, $allName)) {
+                            echo "<div class='error'>Ce nom de theme existe déja</div>";
+                        } else {
+                            $addTheme = $item->addTheme($db, $id, $idCategorie, $theme, $descTheme, $public, $dateCreation);
+
+                            header('Location: index.php?id="' . $id . '"');
+                        }
                     }
                 }
-            }
-            ?>
+                ?>
+            </form>
+
+
         </section>
 
 
